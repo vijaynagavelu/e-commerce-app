@@ -149,7 +149,7 @@ function App() {
 
   const checkAdult = useCallback((phone) => {
     for (var i = 0; i < filter.length; i++) {
-      console.log(phone, "ph")
+      console.log(phonee, "ph")
       if (phone.brand === filter[i]) {
         if (phone.ram === filter[i]) {
           return phone.ram === filter[i];
