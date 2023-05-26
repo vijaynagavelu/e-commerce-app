@@ -105,91 +105,71 @@ function App() {
   ]
 
   const [array, setArray] = useState(items);
-  const [filter, setFilter] = useState([]);
+  const [brandFilter, setBrandFilter] = useState([]);
+  const [ramFilter, setRamFilter] = useState([]);
+  const [memoryFilter, setMemoryFilter] = useState([]);
+  const [colorFilter, setColorFilter] = useState([]);
 
 
 
-  // function checkAdult(items) {
-  //   for (var i = 0; i < filter.length; i++) {
-  //     if (items.color === filter[i]) {
-  //       return items.color === filter[i];
+
+  // function checkAdult(phone, a) {
+  //   if (a.length) {
+  //     for (var i = 0; i < a.length; i++) {
+  //       if (phone.brand === a[i]) {
+  //         return phone.brand === a[i];
+  //       }
   //     }
-  //     if (items.brand === filter[i]) {
-  //       return items.brand === filter[i];
-  //     }
-  //     if (items.ram === filter[i]) {
-  //       return items.ram === filter[i];
-  //     } if
-  //       (items.memory === filter[i]) {
-  //       return items.memory === filter[i];
-  //     }
-  //   }
+  //   } else return ((phone) => phone.brand.includes(a))
   // }
 
-
-  // const checkAdult = useCallback((phone) => {
-  //   for (var i = 0; i < filter.length; i++) {
-  //     console.log(phone, "ph")
-  //     if (phone.color === filter[i]) {
-  //       return phone.color === filter[i];
-  //     }
-  //     if (phone.ram === filter[i]) {
-  //       return phone.ram === filter[i];
-  //     }
-  //     if (phone.brand === filter[i]) {
-  //       return phone.brand === filter[i];
-  //     }
-  //     if
-  //       (phone.memory === filter[i]) {
-  //       return phone.memory === filter[i];
-  //     }
-  //   }
-  // }, [filter])
-
-
   const checkAdult = useCallback((phone) => {
-    for (var i = 0; i < filter.length; i++) {
-      console.log(phone, "ph")
-      if (phone.brand === filter[i]) {
-        if (phone.ram === filter[i]) {
-          return phone.ram === filter[i];
+    console.log(brandFilter);
+    if (brandFilter.length) {
+      for (var i = 0; i < brandFilter.length; i++) {
+        if (phone.brand === brandFilter[i]) {
+          return phone.brand === brandFilter[i];
         }
-        return phone.brand === filter[i];
       }
-      // if (phone.ram === filter[i]) {
-      //   return phone.ram === filter[i];
-      // }
-      if (phone.color === filter[i]) {
-        return phone.color === filter[i];
+    } else return ((phone) => phone.brand.includes(brandFilter))
+  }, [brandFilter]);
+
+
+  const checkAdult1 = useCallback((phone) => {
+    if (ramFilter.length) {
+      for (var i = 0; i < ramFilter.length; i++) {
+        if (phone.ram === ramFilter[i]) {
+          return phone.ram === ramFilter[i];
+        }
       }
-      if
-        (phone.memory === filter[i]) {
-        return phone.memory === filter[i];
-      }
-    }
-  }, [filter])
+    } else return ((phone) => phone.ram.includes(ramFilter))
+  }, [ramFilter])
+
 
 
   const selectedList = useCallback(() => {
-    if (filter.length > 0) {
-      const filteredItems = array.filter(checkAdult)
-      setArray(filteredItems);
-      console.log("hello be", array);
-    } else {
-      setArray(items);
-    }
-  }, [array, checkAdult, filter.length, items])
+    let filteredItems = items.filter(checkAdult);
+    //console.log(abc);
+
+    filteredItems = filteredItems.filter(checkAdult1);
+    console.log(filteredItems);
+
+
+    setArray(filteredItems);
+    console.log("hello be", array);
+
+  }, [array, brandFilter, checkAdult, checkAdult1, items])
+
+
 
   useEffect(() => {
     selectedList()
-  }, [filter]);
+  }, [brandFilter, ramFilter]);
 
 
   // function selectedList() {
 
-
-
-  function updateInput(e) {
+  function updateInput(e, filter, setFilter) {
     if (!filter.includes(e)) {
       setFilter([...filter, e]);
     } else {
@@ -199,7 +179,7 @@ function App() {
     }
   }
 
-  function check(item) {
+  function check(item, filter) {
     return filter.includes(item);
   }
 
@@ -222,8 +202,8 @@ function App() {
             {brand.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item)} onClick={() => { updateInput(item) }} ></input>
+                  <div onClick={() => { updateInput(item, brandFilter, setBrandFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={check(item, brandFilter)} onClick={() => { updateInput(item, brandFilter, setBrandFilter) }} ></input>
                 </div>
               )
             })}
@@ -232,8 +212,8 @@ function App() {
             {ram.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item)} onClick={() => { updateInput(item) }} ></input>
+                  <div onClick={() => { updateInput(item, ramFilter, setRamFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={check(item, ramFilter)} onClick={() => { updateInput(item, ramFilter, setRamFilter) }} ></input>
                 </div>
               )
             })}
@@ -242,8 +222,8 @@ function App() {
             {memory.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item)} onClick={() => { updateInput(item) }} ></input>
+                  <div onClick={() => { updateInput(item, memoryFilter, setMemoryFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={check(item, memoryFilter)} onClick={() => { updateInput(item, memoryFilter, setMemoryFilter) }} ></input>
                 </div>
               )
             })}
@@ -252,8 +232,8 @@ function App() {
             {color.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item)} onClick={() => { updateInput(item) }}></input>
+                  <div onClick={() => { updateInput(item, colorFilter, setColorFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={check(item, colorFilter)} onClick={() => { updateInput(item, colorFilter, setColorFilter) }}></input>
                 </div>
               )
             })}
