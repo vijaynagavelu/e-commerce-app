@@ -1,108 +1,110 @@
 import { useCallback, useEffect, useState } from 'react';
 import './App.css';
 
+
+const items = [
+  {
+    name: "Apple iphone 13 pro",
+    category: "phone",
+    color: "Blue",
+    brand: "Apple iphone",
+    ram: "6GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/61BGE6iu4AL._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Apple iphone 13 pro",
+    category: "phone",
+    color: "White",
+    brand: "Apple iphone",
+    ram: "6GB",
+    memory: "256GB",
+    imgLink: "https://m.media-amazon.com/images/I/618Bb+QzCmL._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Apple iphone 13 pro",
+    category: "phone",
+    color: "Gold",
+    brand: "Apple iphone",
+    ram: "4GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/61WAINtWPPL._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Samsung 11pro",
+    category: "phone",
+    color: "Black",
+    brand: "Samsung",
+    ram: "4GB",
+    memory: "64GB",
+    imgLink: "https://m.media-amazon.com/images/I/81t6Av5DvXL._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Samsung 11pro",
+    category: "phone",
+    color: "White",
+    brand: "Samsung",
+    ram: "6GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/817WWpaFo1L._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Redmi max max",
+    category: "phone",
+    color: "Gold",
+    brand: "Redmi",
+    ram: "12GB",
+    memory: "64GB",
+    imgLink: "https://m.media-amazon.com/images/I/71yTJCdHdaL._AC_SS450_.jpg",
+  },
+  {
+    name: "Redmi 11 max",
+    category: "phone",
+    color: "Black",
+    brand: "Redmi",
+    ram: "6GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/71293gyogZL._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Poco",
+    category: "phone",
+    color: "White",
+    brand: "Poco",
+    ram: "4GB",
+    memory: "256GB",
+    imgLink: "https://m.media-amazon.com/images/I/413eFqPKBcL._SX300_SY300_QL70_FMwebp_.jpg",
+  },
+  {
+    name: "Poco",
+    category: "phone",
+    color: "Yellow",
+    brand: "Poco",
+    ram: "6GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/51RtjBcZqWL._SX425_.jpg",
+  },
+  {
+    name: "Poco",
+    category: "phone",
+    color: "White",
+    brand: "Poco",
+    ram: "6GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/413eFqPKBcL._SX300_SY300_QL70_FMwebp_.jpg",
+  },
+
+
+]
+
 function App() {
 
-  const brand = ["Apple iphone", "Samsung", "Redmi", "Poco"];
-  const ram = ["6GB", "4GB", "12GB"];
-  const memory = ["64GB", "128GB", "256GB"];
-  const color = ["White", "Black", "Gold", "Yellow", "Blue"];
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const items = [
-    {
-      name: "Apple iphone 13 pro",
-      category: "phone",
-      color: "Blue",
-      brand: "Apple iphone",
-      ram: "6GB",
-      memory: "128GB",
-      imgLink: "https://m.media-amazon.com/images/I/61BGE6iu4AL._AC_UY327_FMwebp_QL65_.jpg",
-    },
-    {
-      name: "Apple iphone 13 pro",
-      category: "phone",
-      color: "White",
-      brand: "Apple iphone",
-      ram: "6GB",
-      memory: "256GB",
-      imgLink: "https://m.media-amazon.com/images/I/618Bb+QzCmL._AC_UY327_FMwebp_QL65_.jpg",
-    },
-    {
-      name: "Apple iphone 13 pro",
-      category: "phone",
-      color: "Gold",
-      brand: "Apple iphone",
-      ram: "4GB",
-      memory: "128GB",
-      imgLink: "https://m.media-amazon.com/images/I/61WAINtWPPL._AC_UY327_FMwebp_QL65_.jpg",
-    },
-    {
-      name: "Samsung 11pro",
-      category: "phone",
-      color: "Black",
-      brand: "Samsung",
-      ram: "4GB",
-      memory: "64GB",
-      imgLink: "https://m.media-amazon.com/images/I/81t6Av5DvXL._AC_UY327_FMwebp_QL65_.jpg",
-    },
-    {
-      name: "Samsung 11pro",
-      category: "phone",
-      color: "White",
-      brand: "Samsung",
-      ram: "6GB",
-      memory: "128GB",
-      imgLink: "https://m.media-amazon.com/images/I/817WWpaFo1L._AC_UY327_FMwebp_QL65_.jpg",
-    },
-    {
-      name: "Redmi max max",
-      category: "phone",
-      color: "Gold",
-      brand: "Redmi",
-      ram: "12GB",
-      memory: "64GB",
-      imgLink: "https://m.media-amazon.com/images/I/71yTJCdHdaL._AC_SS450_.jpg",
-    },
-    {
-      name: "Redmi 11 max",
-      category: "phone",
-      color: "Black",
-      brand: "Redmi",
-      ram: "6GB",
-      memory: "128GB",
-      imgLink: "https://m.media-amazon.com/images/I/71293gyogZL._AC_UY327_FMwebp_QL65_.jpg",
-    },
-    {
-      name: "Poco",
-      category: "phone",
-      color: "White",
-      brand: "Poco",
-      ram: "4GB",
-      memory: "256GB",
-      imgLink: "https://m.media-amazon.com/images/I/413eFqPKBcL._SX300_SY300_QL70_FMwebp_.jpg",
-    },
-    {
-      name: "Poco",
-      category: "phone",
-      color: "Yellow",
-      brand: "Poco",
-      ram: "6GB",
-      memory: "128GB",
-      imgLink: "https://m.media-amazon.com/images/I/51RtjBcZqWL._SX425_.jpg",
-    },
-    {
-      name: "Poco",
-      category: "phone",
-      color: "White",
-      brand: "Poco",
-      ram: "6GB",
-      memory: "128GB",
-      imgLink: "https://m.media-amazon.com/images/I/413eFqPKBcL._SX300_SY300_QL70_FMwebp_.jpg",
-    },
+  const brandList = ["Apple iphone", "Samsung", "Redmi", "Poco"];
+  const ramList = ["6GB", "4GB", "12GB"];
+  const memoryList = ["64GB", "128GB", "256GB"];
+  const colorList = ["White", "Black", "Gold", "Yellow", "Blue"];
 
 
-  ]
 
   const [array, setArray] = useState(items);
   const [brandFilter, setBrandFilter] = useState([]);
@@ -111,63 +113,35 @@ function App() {
   const [colorFilter, setColorFilter] = useState([]);
 
 
-
-
-  // function checkAdult(phone, a) {
-  //   if (a.length) {
-  //     for (var i = 0; i < a.length; i++) {
-  //       if (phone.brand === a[i]) {
-  //         return phone.brand === a[i];
-  //       }
-  //     }
-  //   } else return ((phone) => phone.brand.includes(a))
-  // }
-
-  const checkAdult = useCallback((phone) => {
-    console.log(brandFilter);
-    if (brandFilter.length) {
-      for (var i = 0; i < brandFilter.length; i++) {
-        if (phone.brand === brandFilter[i]) {
-          return phone.brand === brandFilter[i];
-        }
-      }
-    } else return ((phone) => phone.brand.includes(brandFilter))
-  }, [brandFilter]);
-
-
-  const checkAdult1 = useCallback((phone) => {
-    if (ramFilter.length) {
-      for (var i = 0; i < ramFilter.length; i++) {
-        if (phone.ram === ramFilter[i]) {
-          return phone.ram === ramFilter[i];
-        }
-      }
-    } else return ((phone) => phone.ram.includes(ramFilter))
-  }, [ramFilter])
-
+  const filter = (filteredArray, selectedFilterList, filter) =>
+    filteredArray.filter((list) => {
+      if (selectedFilterList.length) {
+        for (var i = 0; i < selectedFilterList.length; i++) {
+          if (list[filter] === selectedFilterList[i]) {
+            return list[filter] === selectedFilterList[i];
+          }
+        } return false;
+      } else return filteredArray;
+    });
 
 
   const selectedList = useCallback(() => {
-    let filteredItems = items.filter(checkAdult);
-    //console.log(abc);
+    console.log("low");
+    let filteredItems = filter(items, brandFilter, "brand");
+    filteredItems = filter(filteredItems, ramFilter, "ram");
+    filteredItems = filter(filteredItems, colorFilter, "color");
+    filteredItems = filter(filteredItems, memoryFilter, "memory");
 
-    filteredItems = filteredItems.filter(checkAdult1);
-    console.log(filteredItems);
-
-
+    console.log(filteredItems)
     setArray(filteredItems);
-    console.log("hello be", array);
-
-  }, [array, brandFilter, checkAdult, checkAdult1, items])
-
+  }, [brandFilter, colorFilter, memoryFilter, ramFilter]);
 
 
   useEffect(() => {
     selectedList()
-  }, [brandFilter, ramFilter]);
+  }, [selectedList]);
 
 
-  // function selectedList() {
 
   function updateInput(e, filter, setFilter) {
     if (!filter.includes(e)) {
@@ -193,13 +167,12 @@ function App() {
         </div>
         <div>Hello Mark</div>
         <div>Cart 1 </div>
-
       </nav>
 
       <div className='container'>
         <div className='filters'>
           <div className='filterSection'>
-            {brand.map((item, i) => {
+            {brandList.map((item, i) => {
               return (
                 <div key={i} className='row' >
                   <div onClick={() => { updateInput(item, brandFilter, setBrandFilter) }}>{item}</div>
@@ -209,7 +182,7 @@ function App() {
             })}
           </div>
           <div className='filterSection'>
-            {ram.map((item, i) => {
+            {ramList.map((item, i) => {
               return (
                 <div key={i} className='row' >
                   <div onClick={() => { updateInput(item, ramFilter, setRamFilter) }}>{item}</div>
@@ -219,7 +192,7 @@ function App() {
             })}
           </div>
           <div className='filterSection'>
-            {memory.map((item, i) => {
+            {memoryList.map((item, i) => {
               return (
                 <div key={i} className='row' >
                   <div onClick={() => { updateInput(item, memoryFilter, setMemoryFilter) }}>{item}</div>
@@ -229,7 +202,7 @@ function App() {
             })}
           </div>
           <div className='filterSection'>
-            {color.map((item, i) => {
+            {colorList.map((item, i) => {
               return (
                 <div key={i} className='row' >
                   <div onClick={() => { updateInput(item, colorFilter, setColorFilter) }}>{item}</div>
