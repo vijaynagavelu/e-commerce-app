@@ -31,7 +31,7 @@ const items = [
     imgLink: "https://m.media-amazon.com/images/I/61WAINtWPPL._AC_UY327_FMwebp_QL65_.jpg",
   },
   {
-    name: "Samsung 11pro",
+    name: "Samsung 11 pro",
     category: "phone",
     color: "Black",
     brand: "Samsung",
@@ -40,7 +40,16 @@ const items = [
     imgLink: "https://m.media-amazon.com/images/I/81t6Av5DvXL._AC_UY327_FMwebp_QL65_.jpg",
   },
   {
-    name: "Samsung 11pro",
+    name: "Samsung 12 pro",
+    category: "phone",
+    color: "Blue",
+    brand: "Samsung",
+    ram: "6GB",
+    memory: "256GB",
+    imgLink: "https://m.media-amazon.com/images/I/41q7YUp4H1L._SX300_SY300_QL70_FMwebp_.jpg",
+  },
+  {
+    name: "Samsung 10 pro",
     category: "phone",
     color: "White",
     brand: "Samsung",
@@ -65,6 +74,15 @@ const items = [
     ram: "6GB",
     memory: "128GB",
     imgLink: "https://m.media-amazon.com/images/I/71293gyogZL._AC_UY327_FMwebp_QL65_.jpg",
+  },
+  {
+    name: "Redmi 12 max",
+    category: "phone",
+    color: "Blue",
+    brand: "Redmi",
+    ram: "4GB",
+    memory: "128GB",
+    imgLink: "https://m.media-amazon.com/images/I/41Mb05aS5fL._SX300_SY300_QL70_FMwebp_.jpg",
   },
   {
     name: "Poco",
@@ -105,7 +123,6 @@ function App() {
   const colorList = ["White", "Black", "Gold", "Yellow", "Blue"];
 
 
-
   const [array, setArray] = useState(items);
   const [brandFilter, setBrandFilter] = useState([]);
   const [ramFilter, setRamFilter] = useState([]);
@@ -126,12 +143,10 @@ function App() {
 
 
   const selectedList = useCallback(() => {
-    console.log("low");
     let filteredItems = filter(items, brandFilter, "brand");
     filteredItems = filter(filteredItems, ramFilter, "ram");
     filteredItems = filter(filteredItems, colorFilter, "color");
     filteredItems = filter(filteredItems, memoryFilter, "memory");
-
     console.log(filteredItems)
     setArray(filteredItems);
   }, [brandFilter, colorFilter, memoryFilter, ramFilter]);
@@ -142,8 +157,7 @@ function App() {
   }, [selectedList]);
 
 
-
-  function updateInput(e, filter, setFilter) {
+  function updateFilterList(e, filter, setFilter) {
     if (!filter.includes(e)) {
       setFilter([...filter, e]);
     } else {
@@ -153,7 +167,7 @@ function App() {
     }
   }
 
-  function check(item, filter) {
+  function updateCheckBox(item, filter) {
     return filter.includes(item);
   }
 
@@ -175,8 +189,8 @@ function App() {
             {brandList.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item, brandFilter, setBrandFilter) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item, brandFilter)} onClick={() => { updateInput(item, brandFilter, setBrandFilter) }} ></input>
+                  <div onClick={() => { updateFilterList(item, brandFilter, setBrandFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={updateCheckBox(item, brandFilter)} onClick={() => { updateFilterList(item, brandFilter, setBrandFilter) }} ></input>
                 </div>
               )
             })}
@@ -185,8 +199,8 @@ function App() {
             {ramList.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item, ramFilter, setRamFilter) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item, ramFilter)} onClick={() => { updateInput(item, ramFilter, setRamFilter) }} ></input>
+                  <div onClick={() => { updateFilterList(item, ramFilter, setRamFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={updateCheckBox(item, ramFilter)} onClick={() => { updateFilterList(item, ramFilter, setRamFilter) }} ></input>
                 </div>
               )
             })}
@@ -195,8 +209,8 @@ function App() {
             {memoryList.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item, memoryFilter, setMemoryFilter) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item, memoryFilter)} onClick={() => { updateInput(item, memoryFilter, setMemoryFilter) }} ></input>
+                  <div onClick={() => { updateFilterList(item, memoryFilter, setMemoryFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={updateCheckBox(item, memoryFilter)} onClick={() => { updateFilterList(item, memoryFilter, setMemoryFilter) }} ></input>
                 </div>
               )
             })}
@@ -205,8 +219,8 @@ function App() {
             {colorList.map((item, i) => {
               return (
                 <div key={i} className='row' >
-                  <div onClick={() => { updateInput(item, colorFilter, setColorFilter) }}>{item}</div>
-                  <input readOnly type='checkbox' checked={check(item, colorFilter)} onClick={() => { updateInput(item, colorFilter, setColorFilter) }}></input>
+                  <div onClick={() => { updateFilterList(item, colorFilter, setColorFilter) }}>{item}</div>
+                  <input readOnly type='checkbox' checked={updateCheckBox(item, colorFilter)} onClick={() => { updateFilterList(item, colorFilter, setColorFilter) }}></input>
                 </div>
               )
             })}
